@@ -689,7 +689,7 @@
           <h3>Contact Information</h3>
           <p><strong>Address:</strong> 5351 N East River Rd #802, Chicago, IL 60656</p>
           <p><strong>Phone:</strong> <a href="tel:7734100198">(773) 410-0198</a></p>
-          <p><strong>Email:</strong> <a href="mailto:GFLTRUCK@att.net">GFLTRUCK@att.net</a></p>
+          <p><strong>Email:</strong> <a href="mailto:GFLTRUCK@att.net" target="_blank" rel="noopener">GFLTRUCK@att.net</a></p>
           <p><strong>Hours:</strong> Dispatch available 24/7</p>
           <p style="margin-top: 24px;"><strong>MC:</strong> 785359 &nbsp;|&nbsp; <strong>USDOT:</strong> 1309626<br>Terminal near ORD in Bensenville, Illinois. Serving Illinois and 5 neighboring states.<br>Registered & insured in all 50 states. Alcohol permits: Indiana & Kentucky.<br>Tracking: Macropoint, Tracker Tools, Highway ELD, or driver’s phone.</p>
         </div>
@@ -743,11 +743,24 @@
       const body = encodeURIComponent(
         'Name: ' + name + '\n' +
         'Email: ' + email + '\n' +
-        'Phone: ' + phone + '\n\n' +
+        'Phone: ' + (phone || 'Not provided') + '\n\n' +
         message
       );
 
-      window.location.href = 'mailto:GFLTRUCK@att.net?subject=' + subject + '&body=' + body;
+      const mailto = 'mailto:GFLTRUCK@att.net?subject=' + subject + '&body=' + body;
+
+      // Try to open email client
+      const a = document.createElement('a');
+      a.href = mailto;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // Fallback message
+      setTimeout(() => {
+        alert('If your email app did not open, please email GFLTRUCK@att.net directly.\n\nSubject: Quote Request from ' + name);
+      }, 800);
     });
 
     // Logo popup (much larger) on double-click
