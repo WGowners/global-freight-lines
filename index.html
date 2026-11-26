@@ -763,17 +763,13 @@
       }, 800);
     });
 
-    // Logo popup (much larger) on double-click
-    const modal = document.getElementById('logoModal');
-    const modalImg = document.getElementById('logoModalImg');
+    // Double-click logo opens logo-email.jpg in a new tab
     document.querySelectorAll('.logo img, .hero-logo').forEach(img => {
       img.addEventListener('dblclick', function(e) {
         e.preventDefault();
-        modalImg.src = this.src;
-        modal.classList.add('active');
+        window.open('imagine_images/logo-email.jpg', '_blank');
       });
     });
-    modal.addEventListener('click', () => modal.classList.remove('active'));
   </script>
 </body>
 </html>
