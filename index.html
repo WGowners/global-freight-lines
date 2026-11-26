@@ -726,11 +726,28 @@
       });
     });
 
-    // Simple form handling
+    // Contact form opens email client
     document.querySelector('form')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Thank you! Your quote request has been received. We will contact you shortly.');
-      this.reset();
+      const name = this.querySelector('input[type="text"]').value.trim();
+      const email = this.querySelector('input[type="email"]').value.trim();
+      const phone = this.querySelector('input[type="tel"]').value.trim();
+      const message = this.querySelector('textarea').value.trim();
+
+      if (!name || !email) {
+        alert('Please enter your name and email address.');
+        return;
+      }
+
+      const subject = encodeURIComponent('Quote Request from ' + name);
+      const body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Phone: ' + phone + '\n\n' +
+        message
+      );
+
+      window.location.href = 'mailto:GFLTRUCK@att.net?subject=' + subject + '&body=' + body;
     });
 
     // Logo popup (much larger) on double-click
